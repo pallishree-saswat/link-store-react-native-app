@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, View, StatusBar, ScrollView } from "react-native";
 import UserInput from "../components/UserInput";
 import SubmitButton from "../components/SubmitButton";
 import axios from "axios";
 import CircleLogo from "../components/CircleLogo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../context/auth";
 
 const Signin = ({ navigation }) => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const { state, setState } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -19,17 +20,29 @@ const Signin = ({ navigation }) => {
       setLoading(false);
       return;
     }
-
     try {
-      const { data } = axios.post("http://localhost:8000/api/signin", {
+      const { data } = await axios.post(`/signin`, {
         email,
         password,
       });
+      if (data.error) {
+        alert(data.error);
+        setLoading(false);
+      } else {
+        // save in context
+        setState(data);
+        // save response in async storage
+        await AsyncStorage.setItem("@auth", JSON.stringify(data));
+        setLoading(false);
+        console.log("SIGN IN SUCCESS => ", data);
+        alert("Sign in successful");
+        // redirect
+        navigation.navigate("Home");
+      }
+    } catch (err) {
+      alert("Signup failed. Try again.");
+      console.log(err);
       setLoading(false);
-      console.log("Sign in success", data);
-      alert("Signin Successful!");
-    } catch (error) {
-      console.log(error);
     }
   };
 

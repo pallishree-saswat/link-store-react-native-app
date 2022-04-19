@@ -1,43 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, View, StatusBar, ScrollView } from "react-native";
 import UserInput from "../components/UserInput";
 import SubmitButton from "../components/SubmitButton";
 import axios from "axios";
 import CircleLogo from "../components/CircleLogo";
-
+import { API } from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../context/auth";
 const Signup = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const { state, setState } = useContext(AuthContext);
+  // console.log("NAVIGATION -> ", navigation);
 
   const handleSubmit = async () => {
     setLoading(true);
-    if (!name || !email || !phoneNumber || !password) {
+    if (!name || !email || !password) {
       alert("All fields are required");
       setLoading(false);
       return;
     }
-
     try {
-      const { data } = axios.post(
-        "http://localhost:8000/api/signup",
-        {
-          name,
-          email,
-          password,
-          phoneNumber,
-        }
-      );
+      const { data } = await axios.post(`/signup`, {
+        name,
+        email,
+        password,
+      });
+
+      if (data.error) {
+        alert(data.error);
+        setLoading(false);
+      } else {
+        // save to context
+        setState(data);
+        // save response in async storage
+        await AsyncStorage.setItem("@auth", JSON.stringify(data));
+        setLoading(false);
+        console.log("SIGN IN SUCCESS => ", data);
+        alert("Sign up successful");
+        // navigation.naviagte("Home");
+      }
+    } catch (err) {
+      alert("Signup failed. Try again.");
+      console.log(err);
       setLoading(false);
-      console.log("Sign up success", data);
-      alert("Signup Successful!");
-    } catch (error) {
-      console.log(error);
     }
   };
-
   return (
     <ScrollView>
       <View style={{ marginVertical: 100, flex: 1, justifyContent: "center" }}>
