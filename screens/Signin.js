@@ -92,6 +92,12 @@ const Signin = ({ navigation }) => {
             Sign Up{" "}
           </Text>
         </Text>
+        <Text
+           onPress={() => navigation.navigate("ForgotPassword")}
+            style={{ color: "#ff2222",marginTop: 10,fontSize: 15, textAlign: "center"  }}
+          >
+            Forgot Password{" "}
+          </Text>
       </View>
     </ScrollView>
   );
