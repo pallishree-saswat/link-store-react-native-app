@@ -145,7 +145,7 @@ const Account = ({ navigation }) => {
               name="camera"
               size={25}
               color="orange"
-              style={{ maringTop: -5, marginBottom: 10, alignSelf: "center" }}
+              style={{ marginTop: -5, marginBottom: 10, alignSelf: "center" }}
             />
           </TouchableOpacity>
         ) : (

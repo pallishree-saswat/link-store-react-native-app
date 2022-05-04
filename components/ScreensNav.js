@@ -6,6 +6,7 @@ import Home from "../screens/Home";
 import Account from "../screens/Account";
 import Post from "../screens/Post";
 import Links from "../screens/Links";
+import LinkView from "../screens/LinkView";
 import ForgotPassword from "../screens/ForgotPassword";
 import { AuthContext } from "../context/auth";
 import HeaderTabs from "./HeaderTabs";
@@ -38,6 +39,13 @@ export default function ScreensNav() {
             options={{
               headerBackTitle: "Back",
               headerRight: () => <HeaderTabs />,
+            }}
+          />
+          <Stack.Screen
+            name="LinkView"
+            component={LinkView}
+            options={{
+              title: "",
             }}
           />
           <Stack.Screen

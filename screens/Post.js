@@ -4,11 +4,14 @@ import { Text, SafeAreaView, ScrollView, TextInput, View } from "react-native";
 import FooterTabs from "../components/FooterTabs";
 import { AuthContext } from "../context/auth";
 import SubmitButton from "../components/SubmitButton";
+import ogs from "@uehreka/open-graph-scraper-react-native";
+import urlRegex from "url-regex";
+import PreviewCard from "../components/PreviewCard";
+import { LinkContext } from "../context/link";
 
 const Post = ({ navigation }) => {
-  const { state, setState } = useContext(AuthContext);
   // context
-  // const {links, setLinks} = useContext(LinkContext);
+  const [ links, setLinks ] = useContext(LinkContext);
   // state
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
@@ -16,24 +19,25 @@ const Post = ({ navigation }) => {
   const [urlPreview, setUrlPreview] = useState({});
 
   const handleChange = async (text) => {
-    // try {
-    //   setLoading(true);
-    //   setLink(text);
-    //   if (urlRegex({ strict: false }).test(text)) {
-    //     ogs({ url: text }, (error, results, response) => {
-    //       // console.log(results);
-    //       if (results.success) {
-    //         setUrlPreview(results);
-    //       }
-    //       setLoading(false);
-    //     });
-    //   } else {
-    //     setLoading(false);
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   setLoading(false);
-    // }
+    try {
+      setLoading(true);
+      setLink(text);
+
+      if (urlRegex({ strict: false }).test(text)) {
+        ogs({ url: text }, (error, results, response) => {
+          // console.log(results);
+          if (results.success) {
+            setUrlPreview(results);
+          }
+          setLoading(false);
+        });
+      } else {
+        setLoading(false);
+      }
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -42,22 +46,22 @@ const Post = ({ navigation }) => {
       alert("Paste url and give it a nice title 😎");
       return;
     }
-    // try {
-    //   const { data } = await axios.post("/post-link", {
-    //     link,
-    //     title,
-    //     urlPreview,
-    //   });
-    //   console.log("data => ", data);
-    //   // update link context
-    //   setLinks([data, ...links]);
-    //   setTimeout(() => {
-    //     alert("🎊 Link posted");
-    //     navigation.navigate("Home");
-    //   }, 500);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const { data } = await axios.post("/post-link", {
+        link,
+        title,
+        urlPreview,
+      });
+      console.log("data => ", data);
+      // update link context
+      setLinks([data, ...links]);
+      setTimeout(() => {
+        alert("🎊 Link posted");
+        navigation.navigate("Home");
+      }, 500);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -108,6 +112,17 @@ const Post = ({ navigation }) => {
             padding: 15,
           }}
         />
+
+        {urlPreview.success && (
+          <View
+            style={{
+              marginTop: 30,
+              alignItems: "center",
+            }}
+          >
+            <PreviewCard {...urlPreview} />
+          </View>
+        )}
 
         <View style={{ paddingTop: 25 }}>
           <SubmitButton
