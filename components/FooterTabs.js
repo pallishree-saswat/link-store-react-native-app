@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useNavigation, useRoute } from "@react-navigation/native";
-// import { Divider } from "react-native-elements";
+import { Divider } from "react-native-elements";
 export const Tab = ({ name, text, handlePress, screenName, routeName }) => {
   const activeScreenColor = screenName === routeName && "orange";
 
@@ -27,6 +27,7 @@ export default function FooterTabs() {
 
   return (
     <>
+      {/* <Divider width={1} /> */}
       <View
         style={{
           flexDirection: "row",
@@ -52,7 +53,7 @@ export default function FooterTabs() {
         <Tab
           text="Links"
           name="list-ol"
-          handlePress={() => navigation.navigate("Links")}
+          handlePress={() => navigation.navigate("Profile")}
           screenName="Links"
           routeName={route.name}
         />

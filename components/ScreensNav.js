@@ -10,6 +10,8 @@ import LinkView from "../screens/LinkView";
 import ForgotPassword from "../screens/ForgotPassword";
 import { AuthContext } from "../context/auth";
 import HeaderTabs from "./HeaderTabs";
+import Profile from "../screens/Profile";
+import TrendingLinks from "../screens/TrendingLinks";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,8 +62,28 @@ export default function ScreensNav() {
             name="Account"
             component={Account}
             options={{
+              // headerShown: false,
               headerBackTitle: "Back",
               headerRight: () => <HeaderTabs />,
+            }}
+          />
+            <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={({ route }) => ({
+              title: route.params?.name || "",
+              // headerShown: false,
+              headerTransparent: true,
+              headerBackTitle: "",
+            })}
+          />
+          <Stack.Screen
+            name="TrendingLinks"
+            component={TrendingLinks}
+            options={{
+              title: "",
+              headerTransparent: true,
+              headerBackTitle: "",
             }}
           />
         </>

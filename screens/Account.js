@@ -102,12 +102,16 @@ const Account = ({ navigation }) => {
     alert("👍 Profile image saved");
   };
 
+  const signOut = async () => {
+    setState({ user: null, token: "" });
+    await AsyncStorage.removeItem("@auth");
+  };
   return (
     <ScrollView
       contentContainerStyle={{
         flex: 1,
         justifyContent: "space-between",
-        marginTop: 10,
+        marginTop: 0,
       }}
     >
       <View style={{ marginVertical: 100 }}>
@@ -173,7 +177,7 @@ const Account = ({ navigation }) => {
         <Text
           light
           style={{
-            paddingBottom: 50,
+            paddingBottom: 30,
             fontSize: 12,
             color: "#333",
             textAlign: "center",
@@ -195,10 +199,13 @@ const Account = ({ navigation }) => {
           handleSubmit={handleSubmit}
           loading={loading}
         />
+        <SubmitButton
+          title="Sign Out"
+          handleSubmit={signOut}
+          loading={loading}
+        />
       </View>
-      <View>
-        <FooterTabs />
-      </View>
+     
     </ScrollView>
   );
 };

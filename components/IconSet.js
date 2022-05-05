@@ -1,6 +1,5 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

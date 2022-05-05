@@ -13,8 +13,8 @@ const CircleLogo = ({ children }) => (
     <View
       style={{
         backgroundColor: "#fff",
-        height: 190,
-        width: 190,
+        height: 170,
+        width: 170,
         borderRadius: 100,
         justifyContent: "center",
         alignItems: "center",

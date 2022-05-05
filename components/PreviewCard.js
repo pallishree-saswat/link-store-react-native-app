@@ -50,6 +50,7 @@ const PreviewCard = ({
       return "https://via.placeholder.com/500x500.png?text=Image";
     }
   };
+
   return (
     <View
       style={{
@@ -64,16 +65,16 @@ const PreviewCard = ({
         marginBottom: 20,
       }}
     >
-      <Image
+       <Image
         style={{
           height: "70%",
           width: "100%",
           borderTopRightRadius: 14,
           borderTopLeftRadius: 14,
         }}
-        source={{ uri: ogImage.url }}
+        source={{ uri: ogImageUrl(ogImage) }}
       />
-      <View style={showIcons ? { marginBottom: -40 } : {}}>
+     <View style={showIcons ? { marginBottom: -40 } : {}}>
         <IconSet
           handleLikePress={handleLikePress}
           handleUnLikePress={handleUnLikePress}
@@ -85,10 +86,10 @@ const PreviewCard = ({
 
       <TouchableOpacity onPress={() => handlePress(link)}>
         <View style={{ padding: 5, height: 50 }}>
-          <Text style={{ paddingTop: 5, paddingBottom: 5, fontSize: 18 }}>
+          <Text style={{ paddingTop: 4, paddingBottom: 3, fontSize: 14 }}>
             {ogTitle}
           </Text>
-          <Text style={{ fontSize: 14 }}>{ogDescription}</Text>
+          <Text style={{ fontSize: 12 }}>{ogDescription}</Text>
         </View>
       </TouchableOpacity>
     </View>
