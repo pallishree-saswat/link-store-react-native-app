@@ -74,7 +74,7 @@ const PreviewCard = ({
         }}
         source={{ uri: ogImageUrl(ogImage) }}
       />
-     <View style={showIcons ? { marginBottom: -40 } : {}}>
+     <View style={showIcons ? { marginBottom: -40} : {}}>
         <IconSet
           handleLikePress={handleLikePress}
           handleUnLikePress={handleUnLikePress}

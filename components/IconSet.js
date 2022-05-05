@@ -35,7 +35,7 @@ const IconSet = ({
         alignItems: "center",
         justifyContent: "space-between",
         marginRight: 20,
-        marginLeft: 20,
+        marginLeft: 20
       }}
     >
       {showIcons && (
@@ -52,7 +52,7 @@ const IconSet = ({
                 style={styles.shadow}
               />
               <Text style={{ alignItems: "center", color: "#ff9900" }}>
-                {link.likes.length}
+              {link?.likes?.length}
               </Text>
             </TouchableOpacity>
           ) : (
@@ -67,7 +67,7 @@ const IconSet = ({
                 style={styles.shadow}
               />
               <Text style={{ alignItems: "center", color: "#ff9900" }}>
-                {link.likes.length}
+              {link?.likes?.length}
               </Text>
             </TouchableOpacity>
           )}

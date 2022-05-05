@@ -89,9 +89,11 @@ const Profile = ({ navigation }) => {
           source={require("../assets/loading.gif")}
           style={{ height: 100, width: 100 }}
         />
+        <Text>Loading....</Text>
       </View>
     );
   }
+
 
   return (
     <ImageBackground
