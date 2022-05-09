@@ -60,21 +60,27 @@ const Home = ({ navigation }) => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           {links &&
-            links.filter(searched(keyword)).map((link) => (
-              <View
-                key={link._id}
-                style={{
-                  alignItems: "center",
-                }}
-              >
-                <PreviewCard
-                  {...link.urlPreview}
-                  handlePress={handlePress}
-                  link={link}
-                  showIcons={true}
-                />
-              </View>
-            ))}
+            links
+              .filter((item) =>
+                item.urlPreview.ogTitle
+                  .toLowerCase()
+                  .includes(keyword.toLowerCase())
+              )
+              .map((link) => (
+                <View
+                  key={link._id}
+                  style={{
+                    alignItems: "center",
+                  }}
+                >
+                  <PreviewCard
+                    {...link.urlPreview}
+                    handlePress={handlePress}
+                    link={link}
+                    showIcons={true}
+                  />
+                </View>
+              ))}
 
           {linksCount > links?.length && (
             <SubmitButton

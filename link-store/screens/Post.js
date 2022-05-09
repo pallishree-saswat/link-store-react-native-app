@@ -30,6 +30,7 @@ const Post = ({ navigation }) => {
             setUrlPreview(results);
           }
           setLoading(false);
+         
         });
       } else {
         setLoading(false);
@@ -37,6 +38,7 @@ const Post = ({ navigation }) => {
     } catch (err) {
       console.log(err);
       setLoading(false);
+    
     }
   };
 
